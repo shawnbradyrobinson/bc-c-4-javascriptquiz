@@ -123,6 +123,7 @@ on click (){
 var mainCard = document.querySelector(".card");
 var displayedTimer = document.querySelector("#displayedTimer"); 
 var displayedHighScore = document.querySelector("#displayedHighScore");
+var displayedHighScoreName = document.querySelector("#highScoreName")
 var displayedCurrentScore = document.querySelector("#displayedCurrentScore");
 var startButton = document.querySelector("#startButton");
 var displayedQuestion = document.querySelector("#displayedQuestion");
@@ -136,6 +137,8 @@ var clickCount = 0;
 var highScore = 0; 
 var highScoreSaved = localStorage.getItem("highScore");
 var userScore = 0; 
+var highScoreName = "Your name here soon!"; 
+var highScoreNameSaved = localStorage.getItem("highScoreName", highScoreName);
 //Question-Answer Arrays
 var JavaScriptOne = 
     ["What keyword allows you to set a variable in Javascript?",
@@ -176,6 +179,7 @@ var JavaScriptFive =
 displayedTimer.innerHTML = "Timer: ";
 displayedHighScore.innerHTML = "High Score: " +localStorage.getItem("highScore");
 displayedCurrentScore.innerHTML = "Your Score: " +userScore; 
+displayedHighScoreName.innerHTML = "Name: " +localStorage.getItem("highScoreName");
 
 
 
@@ -288,10 +292,14 @@ mainCard.addEventListener("click", function(event){
         if(finalScore > localStorage.getItem("highScore")){
             highScore = finalScore; 
             localStorage.setItem("highScore", highScore);
+
+            highScoreName = prompt("New high score! Write your name :) ", "name here");
+            localStorage.setItem("highScoreName", highScoreName);
         }
 
         displayedCurrentScore.textContent = "Final Score: "+finalScore;
-        displayedHighScore.textContent ="High Score: " +localStorage.getItem("highScore");
+        displayedHighScore.textContent = "High Score: " +localStorage.getItem("highScore");
+        displayedHighScoreName.textContent = "Name: " +localStorage.getItem("highScoreName");
         //END GAME STUFF 
 
         displayedQuestion.textContent = "You finished!"
@@ -334,8 +342,3 @@ function startTimer(){
     }, 1000);
 }
 
-function endGame(){
-   if(timeCount > 0){
-    clearInterval(timeInterval);
-   }
-}
