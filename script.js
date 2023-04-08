@@ -178,6 +178,7 @@ var highScoreNameSaved = localStorage.getItem("highScoreName", highScoreName);
 var timesAttempted = 0; 
 var timesAttemptedSaved = localStorage.getItem("timesAttempted", timesAttempted);
 //Sound Effects Variables
+//Info on Sound Effects from: https://www.youtube.com/watch?v=eRTe4uaiSpc
 var correctSound = document.createElement("audio");
 var incorrectSound = document.createElement("audio");
 correctSound.src = "./sounds/correct-sound.mp3";
@@ -299,19 +300,16 @@ mainCard.addEventListener("click", function(event){
     
     }
 
-    if(clickCount > 6){
+    if(clickCount >= 6){
+        console.log(clickCount);
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
-            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore; 
-        }else{
-            if(clickCount < 8){
-                incorrectSound.play();
-                timeCount -= 10;     
-            }
         }
+        console.log(clickCount);
         var finalScore = userScore + timeCount; 
+
         if(finalScore > localStorage.getItem("highScore")){
             highScore = finalScore; 
             localStorage.setItem("highScore", highScore);
@@ -325,14 +323,14 @@ mainCard.addEventListener("click", function(event){
         displayedHighScoreName.textContent = "Name: " +localStorage.getItem("highScoreName");
         //END GAME STUFF 
 
-        displayedQuestion.textContent = "You finished!"
+        displayedQuestion.textContent = "You finished! Please refresh to play again!"
         displayedChoiceA.textContent = "";
         displayedChoiceB.textContent = "";
         displayedChoiceC.textContent = "";
         displayedChoiceD.textContent = "";
 
         if(timeCount > 0){
-            clearInterval(timeInterval);
+            timeCount = 0; 
            }
         
         if(clickCount > 9){
@@ -361,7 +359,6 @@ function startTimer(){
         displayedChoiceB.textContent = "";
         displayedChoiceC.textContent = "";
         displayedChoiceD.textContent = "";
-        endGame();
 
         }
     }, 1000);
