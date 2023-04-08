@@ -119,26 +119,6 @@ on click (){
 }
 
 */
-//querySelectors
-var mainCard = document.querySelector(".card");
-var displayedTimer = document.querySelector("#displayedTimer"); 
-var displayedHighScore = document.querySelector("#displayedHighScore");
-var displayedHighScoreName = document.querySelector("#highScoreName")
-var displayedCurrentScore = document.querySelector("#displayedCurrentScore");
-var startButton = document.querySelector("#startButton");
-var displayedQuestion = document.querySelector("#displayedQuestion");
-var displayedChoiceA = document.querySelector("#displayedChoiceA");
-var displayedChoiceB = document.querySelector("#displayedChoiceB");
-var displayedChoiceC = document.querySelector("#displayedChoiceC");
-var displayedChoiceD = document.querySelector("#displayedChoiceD");
-//Foundational Variables 
-var timeCount = 61; 
-var clickCount = 0; 
-var highScore = 0; 
-var highScoreSaved = localStorage.getItem("highScore");
-var userScore = 0; 
-var highScoreName = "Your name here soon!"; 
-var highScoreNameSaved = localStorage.getItem("highScoreName", highScoreName);
 //Question-Answer Arrays
 var JavaScriptOne = 
     ["What keyword allows you to set a variable in Javascript?",
@@ -174,12 +154,36 @@ var JavaScriptFive =
      "event delegation",
     "event propogation", //CORRECT
     "event handling"];
+//querySelectors
+var mainCard = document.querySelector(".card");
+var displayedTimer = document.querySelector("#displayedTimer"); 
+var displayedHighScore = document.querySelector("#displayedHighScore");
+var displayedHighScoreName = document.querySelector("#highScoreName")
+var displayedCurrentScore = document.querySelector("#displayedCurrentScore");
+var displayedTimesAttempted = document.querySelector("#displayedTimesAttempted");
+var startButton = document.querySelector("#startButton");
+var displayedQuestion = document.querySelector("#displayedQuestion");
+var displayedChoiceA = document.querySelector("#displayedChoiceA");
+var displayedChoiceB = document.querySelector("#displayedChoiceB");
+var displayedChoiceC = document.querySelector("#displayedChoiceC");
+var displayedChoiceD = document.querySelector("#displayedChoiceD");
+//Essential Variables 
+var timeCount = 61; 
+var clickCount = 0; 
+var highScore = 0; 
+var highScoreSaved = localStorage.getItem("highScore");
+var userScore = 0; 
+var highScoreName = "Your name here soon!"; 
+var highScoreNameSaved = localStorage.getItem("highScoreName", highScoreName);
+var timesAttempted = 0; 
+var timesAttemptedSaved = localStorage.getItem("timesAttempted", timesAttempted);
 
 //Initializing the dynamic displays
 displayedTimer.innerHTML = "Timer: ";
 displayedHighScore.innerHTML = "High Score: " +localStorage.getItem("highScore");
 displayedCurrentScore.innerHTML = "Your Score: " +userScore; 
 displayedHighScoreName.innerHTML = "Name: " +localStorage.getItem("highScoreName");
+displayedTimesAttempted.innerHTML = "# of Attempts: " +localStorage.getItem("timesAttempted"); 
 
 
 
@@ -193,15 +197,14 @@ mainCard.addEventListener("click", function(event){
         }
     }
     //
-    
     clickCount++; 
-    var element = event.target; 
 
     //CLICK COUNT CYCLES
 
     if(clickCount === 1){
         //start up the program 
         startTimer();
+        
         //display Question 1
         displayedQuestion.textContent = JavaScriptOne[0];
         displayedChoiceA.textContent = JavaScriptOne[1];
@@ -209,7 +212,10 @@ mainCard.addEventListener("click", function(event){
         displayedChoiceC.textContent = JavaScriptOne[3];
         displayedChoiceD.textContent = JavaScriptOne[4];
 
-    
+        timesAttemptedSaved++; 
+        localStorage.setItem("timesAttempted", timesAttemptedSaved++);
+        localStorage.getItem("timesAttempted");
+
     }
     if(clickCount === 2){
         //Was the last question correct?
@@ -280,13 +286,15 @@ mainCard.addEventListener("click", function(event){
     
     }
 
-    if(clickCount >= 6){
+    if(clickCount > 6){
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore; 
         }else{
-            timeCount -= 10; 
+            if(clickCount < 8){
+                timeCount -= 10;     
+            }
         }
         var finalScore = userScore + timeCount; 
         if(finalScore > localStorage.getItem("highScore")){
@@ -312,7 +320,9 @@ mainCard.addEventListener("click", function(event){
             clearInterval(timeInterval);
            }
         
-
+        if(clickCount > 9){
+            return; 
+        }
 
     }
 
