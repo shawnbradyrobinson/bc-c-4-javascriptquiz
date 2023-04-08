@@ -120,6 +120,7 @@ on click (){
 
 */
 //querySelectors
+var mainCard = document.querySelector(".card");
 var displayedTimer = document.querySelector("#displayedTimer"); 
 var startButton = document.querySelector("#startButton");
 var displayedQuestion = document.querySelector("#displayedQuestion");
@@ -127,6 +128,9 @@ var displayedChoiceA = document.querySelector("#displayedChoiceA");
 var displayedChoiceB = document.querySelector("#displayedChoiceB");
 var displayedChoiceC = document.querySelector("#displayedChoiceC");
 var displayedChoiceD = document.querySelector("#displayedChoiceD");
+//Foundational Variables 
+var timeCount = 61; 
+var clickCount = 0; 
 //Question-Answer Arrays
 var JavaScriptOne = 
     ["What keyword allows you to set a variable in Javascript?",
@@ -164,10 +168,95 @@ var JavaScriptFive =
     "event handling"];
 
 
-var timeCount = 61; 
 displayedTimer.innerHTML = "Timer: ";
 
+mainCard.addEventListener("click", function(event){
+    var element = event.target; 
+    
+    //Make sure they are hitting the start button to begin...
+    if(clickCount === 0){
+        if (element.matches("#startButton") === false){
+            clickCount = 0; 
+            return; 
+        }
+    }
+    //
+    
+    clickCount++; 
+    var element = event.target; 
 
+    if(element.matches("#buttonA") === true){
+        displayedQuestion.setAttribute("style", "color:white;");
+    }
+
+    //CLICK COUNT CYCLES
+
+    if(clickCount === 1){
+        //start up the program 
+        startTimer();
+        //display Question 1
+        displayedQuestion.textContent = JavaScriptOne[0];
+        displayedChoiceA.textContent = JavaScriptOne[1];
+        displayedChoiceB.textContent = JavaScriptOne[2];
+        displayedChoiceC.textContent = JavaScriptOne[3];
+        displayedChoiceD.textContent = JavaScriptOne[4];
+
+    
+    }
+    if(clickCount === 2){
+        //Was the last question correct?
+        if(element.matches("#displayedChoiceA") === true){
+            displayedQuestion.setAttribute("style", "color:white;");
+        }
+        //displayQuestion 2 
+        displayedQuestion.textContent = JavaScriptTwo[0];
+        displayedChoiceA.textContent = JavaScriptTwo[1];
+        displayedChoiceB.textContent = JavaScriptTwo[2];
+        displayedChoiceC.textContent = JavaScriptTwo[3];
+        displayedChoiceD.textContent = JavaScriptTwo[4];
+    
+    }
+
+    if(clickCount === 3){
+        displayedQuestion.textContent = JavaScriptThree[0];
+        displayedChoiceA.textContent = JavaScriptThree[1];
+        displayedChoiceB.textContent = JavaScriptThree[2];
+        displayedChoiceC.textContent = JavaScriptThree[3];
+        displayedChoiceD.textContent = JavaScriptThree[4];
+    
+    }
+    
+    if(clickCount === 4){
+        displayedQuestion.textContent = JavaScriptFour[0];
+        displayedChoiceA.textContent = JavaScriptFour[1];
+        displayedChoiceB.textContent = JavaScriptFour[2];
+        displayedChoiceC.textContent = JavaScriptFour[3];
+        displayedChoiceD.textContent = JavaScriptFour[4];
+    
+    }
+
+    if(clickCount === 5){
+        displayedQuestion.textContent = JavaScriptFive[0];
+        displayedChoiceA.textContent = JavaScriptFive[1];
+        displayedChoiceB.textContent = JavaScriptFive[2];
+        displayedChoiceC.textContent = JavaScriptFive[3];
+        displayedChoiceD.textContent = JavaScriptFive[4];
+    
+    }
+
+    if(clickCount >= 6){
+        displayedQuestion.textContent = "You finished!"
+        displayedChoiceA.textContent = "";
+        displayedChoiceB.textContent = "";
+        displayedChoiceC.textContent = "";
+        displayedChoiceD.textContent = "";
+    }
+
+
+
+
+
+})
 
 
 function startTimer(){
@@ -182,8 +271,4 @@ function startTimer(){
     }, 1000);
 }
 
-startButton.addEventListener("click", function(){
-startTimer();
-
-})
 
