@@ -5,12 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"/>
-    <title>Document</title>
+    <title>Shawn's Javascript Quiz!</title>
 </head>
 <body>
-    Testing
-    <script src="script.js">
+    <button>Start</button>
+    <div class="card">
+        <h1 id="displayedQuestion">Main Card</h1>
+        <ul>
+            <li id="displayedChoiceA">
+                <button id="buttonA"> A</button>
+            </li>
+            <li id="displayedChoiceB">
+                <button id="buttonB"> B</button>
+            </li>
+            <li id="displayedChoiceC">
+                <button id="buttonC"> C</button>
+            </li>
+            <li id="displayedChoiceD">
+                <button id="buttonD"> D</button>
+            </li>
+        </ul>
+    </div>
 
-    </script>
+    <div class="card">
+        <h4 id="displayedTimer">Timer:</h4>
+    </div>
+
+    <div class="card">
+        <h4 id="displayedHighScore">High Score:</h4>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
