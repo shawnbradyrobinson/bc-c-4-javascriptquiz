@@ -122,6 +122,8 @@ on click (){
 //querySelectors
 var mainCard = document.querySelector(".card");
 var displayedTimer = document.querySelector("#displayedTimer"); 
+var displayedHighScore = document.querySelector("#displayedHighScore");
+var displayedCurrentScore = document.querySelector("#displayedCurrentScore");
 var startButton = document.querySelector("#startButton");
 var displayedQuestion = document.querySelector("#displayedQuestion");
 var displayedChoiceA = document.querySelector("#displayedChoiceA");
@@ -131,6 +133,8 @@ var displayedChoiceD = document.querySelector("#displayedChoiceD");
 //Foundational Variables 
 var timeCount = 61; 
 var clickCount = 0; 
+//ADD LOCAL STORAGE HIGH SCORE VARIABLE HERE......
+var userScore = 0; 
 //Question-Answer Arrays
 var JavaScriptOne = 
     ["What keyword allows you to set a variable in Javascript?",
@@ -167,8 +171,11 @@ var JavaScriptFive =
     "event propogation", //CORRECT
     "event handling"];
 
-
+//Initializing the dynamic displays
 displayedTimer.innerHTML = "Timer: ";
+displayedHighScore.innerHTML = "High Score: ";
+displayedCurrentScore.innerHTML = "Your Score: " +userScore; 
+
 
 mainCard.addEventListener("click", function(event){
     var element = event.target; 
@@ -184,10 +191,6 @@ mainCard.addEventListener("click", function(event){
     
     clickCount++; 
     var element = event.target; 
-
-    if(element.matches("#buttonA") === true){
-        displayedQuestion.setAttribute("style", "color:white;");
-    }
 
     //CLICK COUNT CYCLES
 
@@ -206,7 +209,10 @@ mainCard.addEventListener("click", function(event){
     if(clickCount === 2){
         //Was the last question correct?
         if(element.matches("#displayedChoiceA") === true){
-            displayedQuestion.setAttribute("style", "color:white;");
+            userScore += 5;
+            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+        }else{
+            timeCount -= 10; 
         }
         //displayQuestion 2 
         displayedQuestion.textContent = JavaScriptTwo[0];
@@ -218,6 +224,15 @@ mainCard.addEventListener("click", function(event){
     }
 
     if(clickCount === 3){
+        //Was the last question correct?
+        if(element.matches("#displayedChoiceB") === true){
+            userScore += 5;
+            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+        }else{
+            timeCount -= 10; 
+        }
+
+        
         displayedQuestion.textContent = JavaScriptThree[0];
         displayedChoiceA.textContent = JavaScriptThree[1];
         displayedChoiceB.textContent = JavaScriptThree[2];
@@ -227,6 +242,14 @@ mainCard.addEventListener("click", function(event){
     }
     
     if(clickCount === 4){
+        //Was the last question correct?
+        if(element.matches("#displayedChoiceD") === true){
+            userScore += 5;
+            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+        }else{
+            timeCount -= 10; 
+        }
+        
         displayedQuestion.textContent = JavaScriptFour[0];
         displayedChoiceA.textContent = JavaScriptFour[1];
         displayedChoiceB.textContent = JavaScriptFour[2];
@@ -236,6 +259,14 @@ mainCard.addEventListener("click", function(event){
     }
 
     if(clickCount === 5){
+        //Was the last question correct?
+        if(element.matches("#displayedChoiceD") === true){
+            userScore += 5;
+            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+        }else{
+            timeCount -= 10; 
+        }
+
         displayedQuestion.textContent = JavaScriptFive[0];
         displayedChoiceA.textContent = JavaScriptFive[1];
         displayedChoiceB.textContent = JavaScriptFive[2];
@@ -245,11 +276,23 @@ mainCard.addEventListener("click", function(event){
     }
 
     if(clickCount >= 6){
+        //Was the last question correct?
+        if(element.matches("#displayedChoiceD") === true){
+            userScore += 5;
+            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+        }else{
+            timeCount -= 10; 
+        }
+        var finalScore = userScore + timeCount; 
+        displayedCurrentScore.textContent = "Your Score: "+finalScore;
+
         displayedQuestion.textContent = "You finished!"
         displayedChoiceA.textContent = "";
         displayedChoiceB.textContent = "";
         displayedChoiceC.textContent = "";
         displayedChoiceD.textContent = "";
+        //run endGame();
+
     }
 
 
@@ -265,10 +308,23 @@ function startTimer(){
         
         displayedTimer.textContent = "Timer: "+timeCount+ "  second(s) remaining"; 
         
-        if(timeCount === 0){
+        if(timeCount <= 0){
             clearInterval(timeInterval);
+        displayedQuestion.textContent = "You finished!"
+        displayedChoiceA.textContent = "";
+        displayedChoiceB.textContent = "";
+        displayedChoiceC.textContent = "";
+        displayedChoiceD.textContent = "";
+        //run endGame();
+
         }
     }, 1000);
 }
 
+/*function endGame(){
 
+handle the high score prompt/form and all that within a function? 
+
+}
+
+*/
