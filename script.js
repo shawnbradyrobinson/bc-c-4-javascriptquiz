@@ -119,11 +119,56 @@ on click (){
 }
 
 */
-
+//querySelectors
 var displayedTimer = document.querySelector("#displayedTimer"); 
 var startButton = document.querySelector("#startButton");
+var displayedQuestion = document.querySelector("#displayedQuestion");
+var displayedChoiceA = document.querySelector("#displayedChoiceA");
+var displayedChoiceB = document.querySelector("#displayedChoiceB");
+var displayedChoiceC = document.querySelector("#displayedChoiceC");
+var displayedChoiceD = document.querySelector("#displayedChoiceD");
+//Question-Answer Arrays
+var JavaScriptOne = 
+    ["What keyword allows you to set a variable in Javascript?",
+    "var", //CORRECT
+    "make",
+    "do",
+     "if"];
+
+var JavaScriptTwo = 
+   ["What decade was Javascript invented?",
+    "1980's", 
+    "1990's", //CORRECT
+    "2000's",
+    "2010's"];
+
+var JavaScriptThree = 
+   ["which is NOT a loop name in Javascript?",
+    "for", 
+    "while",
+    "do",
+    "if"];//CORRECT
+
+var JavaScriptFour =  
+    ["What superset of Javascript allows you to work with objects in local storage?",
+    "ECMA", 
+    "Typescript",
+    "W3",
+    "JSON",];//CORRECT
+
+var JavaScriptFive = 
+    ["Which of the following terms is synonymous with 'Event Bubbling'?",
+    "event listeners", 
+     "event delegation",
+    "event propogation", //CORRECT
+    "event handling"];
+
+
 var timeCount = 61; 
 displayedTimer.innerHTML = "Timer: ";
+
+
+
 
 function startTimer(){
     var timeInterval = setInterval(function(){
@@ -134,17 +179,11 @@ function startTimer(){
         if(timeCount === 0){
             clearInterval(timeInterval);
         }
-        
-        
-        
-        
-        }, 1000);
+    }, 1000);
 }
 
 startButton.addEventListener("click", function(){
 startTimer();
-
-
 
 })
 
