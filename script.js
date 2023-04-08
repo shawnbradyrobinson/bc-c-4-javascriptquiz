@@ -119,3 +119,7 @@ on click (){
 }
 
 */
+
+var displayedTimer = document.querySelector("#displayedTimer"); 
+
+displayedTimer.innerHTML = "Timer: ";
