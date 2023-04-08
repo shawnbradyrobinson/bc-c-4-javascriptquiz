@@ -285,13 +285,13 @@ mainCard.addEventListener("click", function(event){
             timeCount -= 10; 
         }
         var finalScore = userScore + timeCount; 
-        if(finalScore > highScore){
+        if(finalScore > localStorage.getItem("highScore")){
             highScore = finalScore; 
             localStorage.setItem("highScore", highScore);
         }
 
         displayedCurrentScore.textContent = "Final Score: "+finalScore;
-        displayedHighScore.textContent ="High Score: " +highScore;
+        displayedHighScore.textContent ="High Score: " +localStorage.getItem("highScore");
         //END GAME STUFF 
 
         displayedQuestion.textContent = "You finished!"
