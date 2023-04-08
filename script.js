@@ -133,7 +133,8 @@ var displayedChoiceD = document.querySelector("#displayedChoiceD");
 //Foundational Variables 
 var timeCount = 61; 
 var clickCount = 0; 
-//ADD LOCAL STORAGE HIGH SCORE VARIABLE HERE......
+var highScore = 0; 
+var highScoreSaved = localStorage.getItem("highScore");
 var userScore = 0; 
 //Question-Answer Arrays
 var JavaScriptOne = 
@@ -173,13 +174,13 @@ var JavaScriptFive =
 
 //Initializing the dynamic displays
 displayedTimer.innerHTML = "Timer: ";
-displayedHighScore.innerHTML = "High Score: ";
+displayedHighScore.innerHTML = "High Score: " +localStorage.getItem("highScore");
 displayedCurrentScore.innerHTML = "Your Score: " +userScore; 
+
 
 
 mainCard.addEventListener("click", function(event){
     var element = event.target; 
-    
     //Make sure they are hitting the start button to begin...
     if(clickCount === 0){
         if (element.matches("#startButton") === false){
@@ -279,19 +280,31 @@ mainCard.addEventListener("click", function(event){
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
             userScore += 5;
-            displayedCurrentScore.textContent = "Your Score: "+userScore;  
+            displayedCurrentScore.textContent = "Your Score: "+userScore; 
         }else{
             timeCount -= 10; 
         }
         var finalScore = userScore + timeCount; 
-        displayedCurrentScore.textContent = "Your Score: "+finalScore;
+        if(finalScore > highScore){
+            highScore = finalScore; 
+            localStorage.setItem("highScore", highScore);
+        }
+
+        displayedCurrentScore.textContent = "Final Score: "+finalScore;
+        displayedHighScore.textContent ="High Score: " +highScore;
+        //END GAME STUFF 
 
         displayedQuestion.textContent = "You finished!"
         displayedChoiceA.textContent = "";
         displayedChoiceB.textContent = "";
         displayedChoiceC.textContent = "";
         displayedChoiceD.textContent = "";
-        //run endGame();
+
+        if(timeCount > 0){
+            clearInterval(timeInterval);
+           }
+        
+
 
     }
 
@@ -308,23 +321,21 @@ function startTimer(){
         
         displayedTimer.textContent = "Timer: "+timeCount+ "  second(s) remaining"; 
         
-        if(timeCount <= 0){
+        if(timeCount <= 0 || clickCount >= 6){
             clearInterval(timeInterval);
         displayedQuestion.textContent = "You finished!"
         displayedChoiceA.textContent = "";
         displayedChoiceB.textContent = "";
         displayedChoiceC.textContent = "";
         displayedChoiceD.textContent = "";
-        //run endGame();
+        endGame();
 
         }
     }, 1000);
 }
 
-/*function endGame(){
-
-handle the high score prompt/form and all that within a function? 
-
+function endGame(){
+   if(timeCount > 0){
+    clearInterval(timeInterval);
+   }
 }
-
-*/
