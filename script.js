@@ -177,6 +177,11 @@ var highScoreName = "Your name here soon!";
 var highScoreNameSaved = localStorage.getItem("highScoreName", highScoreName);
 var timesAttempted = 0; 
 var timesAttemptedSaved = localStorage.getItem("timesAttempted", timesAttempted);
+//Sound Effects Variables
+var correctSound = document.createElement("audio");
+var incorrectSound = document.createElement("audio");
+correctSound.src = "./sounds/correct-sound.mp3";
+incorrectSound.src = "./sounds/incorrect-sound.mp3";
 
 //Initializing the dynamic displays
 displayedTimer.innerHTML = "Timer: ";
@@ -220,9 +225,11 @@ mainCard.addEventListener("click", function(event){
     if(clickCount === 2){
         //Was the last question correct?
         if(element.matches("#displayedChoiceA") === true){
+            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore;  
         }else{
+            incorrectSound.play();
             timeCount -= 10; 
         }
         //displayQuestion 2 
@@ -237,9 +244,11 @@ mainCard.addEventListener("click", function(event){
     if(clickCount === 3){
         //Was the last question correct?
         if(element.matches("#displayedChoiceB") === true){
+            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore;  
         }else{
+            incorrectSound.play();
             timeCount -= 10; 
         }
 
@@ -255,9 +264,11 @@ mainCard.addEventListener("click", function(event){
     if(clickCount === 4){
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
+            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore;  
         }else{
+            incorrectSound.play();
             timeCount -= 10; 
         }
         
@@ -272,9 +283,11 @@ mainCard.addEventListener("click", function(event){
     if(clickCount === 5){
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
+            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore;  
         }else{
+            incorrectSound.play();
             timeCount -= 10; 
         }
 
@@ -289,10 +302,12 @@ mainCard.addEventListener("click", function(event){
     if(clickCount > 6){
         //Was the last question correct?
         if(element.matches("#displayedChoiceD") === true){
+            correctSound.play();
             userScore += 5;
             displayedCurrentScore.textContent = "Your Score: "+userScore; 
         }else{
             if(clickCount < 8){
+                incorrectSound.play();
                 timeCount -= 10;     
             }
         }
