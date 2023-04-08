@@ -121,5 +121,30 @@ on click (){
 */
 
 var displayedTimer = document.querySelector("#displayedTimer"); 
-
+var startButton = document.querySelector("#startButton");
+var timeCount = 61; 
 displayedTimer.innerHTML = "Timer: ";
+
+function startTimer(){
+    var timeInterval = setInterval(function(){
+        timeCount--; 
+        
+        displayedTimer.textContent = "Timer: "+timeCount+ "  second(s) remaining"; 
+        
+        if(timeCount === 0){
+            clearInterval(timeInterval);
+        }
+        
+        
+        
+        
+        }, 1000);
+}
+
+startButton.addEventListener("click", function(){
+startTimer();
+
+
+
+})
+
